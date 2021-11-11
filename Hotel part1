@@ -102,7 +102,7 @@ int main(){
 			Registrar_cuarto();
 			break;
 		case 2:
-			MostrarHabitaciones();
+			Buscar_cuartos();
 			break;
 		case 3:
 			Registrar_cliente(); 
