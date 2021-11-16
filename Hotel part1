@@ -1,118 +1,202 @@
-#include<iostream>
+//Proyecto - Base de datos Hotel
+#include <iostream>
+#include<string>
 
-using namespace std;
-
-//Persona
-class Persona{
-	public:
-		char Nombre[50];
-		char Dir[50];
-		char Telefono[20];
-		int DNI;
+class Persona {
+public:
+	std::string nombre;
+	int DNI;
+	int telefono;
+	Persona() {
+	}
+	Persona(std::string _nombre, int _DNI, int _telefono) {
+		nombre = _nombre;
+		DNI = _DNI;
+		telefono = _telefono;
+	};
+	void mostrarPersona() {
+		std::cout << "Nombre: " << nombre << std::endl;
+		std::cout << "DNI: " << DNI << std::endl;
+		std::cout << "Telefono: " << telefono << std::endl;
+	};
 };
 
-//Cliente
-class Cliente: public Persona{
-	public:
-		char fecha_i[21];
-		char fecha_f[21];
-		float pago;
-		int Reserva;
+class Cliente : public Persona {
+public:
+	std::string rango;
+	int check_in, check_out; 
+	float pago;
+	int num_reserva;
+
+	//Inicializador
+	Cliente() {
+		nombre = "";
+		DNI = 0;
+		telefono = 0;
+		rango = "";
+		check_in = 0;
+		check_out = 0;
+		num_reserva = 0;
+		pago = 0;
+
+	}
+	//Constructor
+	Cliente(std::string _nombre, int _DNI, int _telefono, std::string _rango, int _check_in, int _check_out, int _num_reserva, float _pago) :Persona(_nombre, _DNI, _telefono) {
+		nombre = _nombre;
+		DNI = _DNI;
+		telefono = _telefono;
+		rango = _rango;
+		check_in = _check_in;
+		check_out = _check_out;
+		num_reserva = _num_reserva;
+		pago = _pago;
+
+	};
+	//Mostrar información del cliente
+	void info() {
+		std::cout << "Nombre del cliente: " << nombre << std::endl;
+		std::cout << "DNI: " << DNI << std::endl;
+		std::cout << "Telefono: " << telefono << std::endl;
+		std::cout << "Nivel de usuario: " << rango << std::endl;
+		std::cout << "Fecha de ingreso: " << check_in << std::endl;
+		std::cout << "Fecha de salida: " << check_out << std::endl;
+		std::cout << "Numero de habitacion de la reserva " << num_reserva << std::endl;
+		std::cout << "Pago por adelantado " << pago << std::endl;
+
+	};
 };
 
-class Cliente clientes[100];
-
-//Empleado
-class Trabajador: public Persona{
-	public:
-		float sueldo;
-		int ID_trabajador;
+class Empleado : public Persona {
+public:
+	double sueldo;
+	std::string area_de_trabajo;
+	int hora_entrada;
+	int hora_salida;
+	Empleado(std::string _nombre, int _DNI, int _telefono, double _sueldo, std::string _area, int _hora_e, int _hora_s) :Persona(_nombre, _DNI, _telefono) {
+		nombre = _nombre;
+		DNI = _DNI;
+		telefono = _telefono;
+		sueldo = _sueldo;
+		area_de_trabajo = _area;
+		hora_entrada = _hora_e;
+		hora_salida = _hora_s;
+	}
+	void info() {
+		std::cout << "Nombre del empleado: " << nombre << std::endl;
+		std::cout << "DNI: " << DNI << std::endl;
+		std::cout << "Telefono: " << telefono << std::endl;
+		std::cout << "Sueldo" << sueldo << std::endl;
+		std::cout << "Trabaja en el sector: " << area_de_trabajo << std::endl;
+		std::cout << "Horario: Desde " << hora_entrada << " a " << hora_salida << std::endl;
+	}
 };
 
-//Cuartos
-class Cuarto{
-	public:
-		int numero;
-		int precio;
-		int estado;
-		int camas;
-		char Tipo[20];
-		class Cliente cliente;
+class Cliente Clientes[10];
+
+class Cuarto {
+public:
+	int numero;
+	int precio;
+	int estado;
+	int camas;
+	std::string tipo;
+	class Cliente cliente;
+	//Inicializador
+	Cuarto() {
+		numero = 0;
+		precio = 0;
+		estado = 0;
+		camas = 0;
+		tipo = "";
+		cliente = Cliente();
+	}
+	//Constructor
+	Cuarto(int _numero, int _precio, int _estado, int _camas, std::string _tipo) {
+		numero = _numero;
+		precio = _precio;
+		estado = _estado;
+		camas = _camas;
+		tipo = _tipo;
+	}
+
 };
 
-class Cuarto cuartos[20];
+void CrearCliente() {
+	std::string a, b;
+	int x, y, z, w, o;
+	float p;
+	std::cout << "Nombre del cliente: "; std::cin >> a;
+	std::cout << "DNI: "; std::cin >> x;
+	std::cout << "Telefono: "; std::cin >> y;
+	std::cout << "Nivel: "; std::cin >> b;
 
-class Trabajador trabajadores[100];
+	std::cout << "Fecha de ingreso: (DDMMAAAA)"; std::cin >> z;
+	std::cout << "Fecha de salida: (DDMMAAAA)"; std::cin >> w;
+	std::cout << "Numero de habitacion de la reserva "; std::cin >> o;
+	std::cout << "Pago por adelantado "; std::cin >> p;
 
-void Registrar_cuarto(){
-	std::cout << "\nTipo de habitacion"; std::cin >> cuartos[1].Tipo;
-	std::cout<<"\nNumero de cuarto: ";std::cin>>cuartos[1].numero;
-	std::cout<<"\nPrecio: ";std::cin>>cuartos[1].precio;
-	cuartos[1].estado='N';
-	std::cout<<"\nNumero de camas: ";std::cin>>cuartos[1].camas;
-}
 
-void Buscar_cuartos(){
-	for(int i=0;i<20;i++){
-		if (cuartos[i].estado=='N'){
-			std::cout<<"El cuarto "<<i<<" esta vacio.";
+	for (int i = 0; i < 10; i++) {
+		if (Clientes[i].nombre == "") {
+			Clientes[i] = Cliente(a, x, y, b, z, w, o, p);
+			break;
 		}
 	}
 }
 
-
-void Registrar_cliente(){
-	std::cout<<"\nNombre del cliente: ";std::cin>>cuartos[1].cliente.Nombre;
-	std::cout<<"\nDirección: ";std::cin>>cuartos[1].cliente.Dir;
-	std::cout<<"\nTeléfono: ";std::cin>>cuartos[1].cliente.Telefono;
-	std::cout<<"\nDNI: ";std::cin>>cuartos[1].cliente.DNI;
-	std::cout<<"\nFecha de ingreso: (DDMMAAAA)";std::cin>>cuartos[1].cliente.fecha_i;
-	std::cout<<"\nFecha de salida: (DDMMAAAA)";std::cin>>cuartos[1].cliente.fecha_f;
-	std::cout<<"\nPago adelantado: ";std::cin>>cuartos[1].cliente.pago;
+void Clientesinfo() {
+	for (int i = 0; i < 10; i++) {
+		if (Clientes[i].nombre != "") {
+			std::cout << "Cliente" << i << std::endl;
+			Clientes[i].info();
+		}
+		std::cout << std::endl;
+	}
 }
 
-void MostrarClientes() { //MUESTRA A LOS CLIENTES HOSPEDADOS O REGISTRADOS
-	std::cout << "\n *******Cliente 1 *******";
-	std::cout << "\nNombre del cliente: "<< cuartos[1].cliente.Nombre;
-	std::cout << "\nDirección: "<< cuartos[1].cliente.Dir;
-	std::cout << "\nTeléfono: "<< cuartos[1].cliente.Telefono;
-	std::cout << "\nDNI: "<<cuartos[1].cliente.DNI;
-	std::cout << "\nNumero del cuarto de la reserva "<< cuartos[1].cliente.Reserva;
-	std::cout << "\nFecha de ingreso: (DDMMAAAA)"<< cuartos[1].cliente.fecha_i;
-	std::cout << "\nFecha de salida: (DDMMAAAA)"<< cuartos[1].cliente.fecha_f;
-	std::cout << "\nPago adelantado: "<< cuartos[1].cliente.pago;
+class Cuarto Cuartos[10];
+
+void CrearCuarto() {
+	int a, b, c, d;
+	std::string e;
+	std::cout << "Numero de habitacion: "; std::cin >> a; std::cout << std::endl;
+	std::cout << "Precio: "; std::cin >> b; std::cout << std::endl;
+	std::cout << "Numero de camas: "; std::cin >> c; std::cout << std::endl;
+	d = 1;
+	std::cout << "Tipo de habitacion: "; std::cin >> e; std::cout << std::endl;
+	for (int i = 0; i < 10; i++) {
+		if (Cuartos[i].estado == 0) {
+			Cuartos[i] = Cuarto(a, b, c, d, e);
+			break;
+		}
+	}
 }
 
+void BuscarCuarto() {
 
+}
 
-
-
-int main(){
-	int operacion;
-	while (true){
-		std::cout << "\nIngrese el numero de la operacion que quiere realizar\n";
-		std::cout << "\n1.- Registrar cuarto \n"; //va a contener la info de la habitacion y si esta ocupada o no
-		std::cout << "\n2.- Buscar habitaciones vacias \n"; //nombre,telefono,deireccion,dni,fecha inicio, fehca final, pago
-		std::cout << "\n3.- Registrar clientes \n"; // numero del cuarto, precio, estado, cuantas cams
-		std::cout << "\n4.- Mostrar huespedes \n"; //muestra huespedes ingresados
-		
-		std::cin>>operacion;
-		switch(operacion){
+int main() {
+	//Bucle principal
+	while (true) {
+		//Opciones
+		std::cout << "BIENVENIDO A LA INTERFAZ DE USUARIO\nIntroduzca el numero de comando que desea ejecutar\n";
+		std::cout << "1.- Crear persona\n2.- Mostrar clientes\n3.- Crear cuarto\n";
+		int operacion; std::cin >> operacion;
+		switch (operacion) {
 		case 1:
-			Registrar_cuarto();
+			CrearCliente();
 			break;
 		case 2:
-			Buscar_cuartos();
+			Clientesinfo();
 			break;
 		case 3:
-			Registrar_cliente(); 
+			CrearCuarto();
 			break;
 		case 4:
-			MostrarClientes();
-			break;
-
+			BuscarCuarto();
 		default:
-		   	break;
+			break;
 		}
 	}
 	return 0;
