@@ -1,0 +1,124 @@
+//Proyecto - Base de datos Hotel
+#include <iostream>
+
+class Persona{
+	public:
+		std::string nombre;
+		int DNI;
+		int telefono;
+		Persona(){
+		}		
+		Persona(std::string _nombre, int _DNI, int _telefono){
+			nombre=_nombre;
+			DNI=_DNI;
+			telefono=_telefono;
+		};
+		void mostrarPersona(){
+			std::cout<<"Nombre: "<<nombre<<std::endl;
+			std::cout<<"DNI: "<<DNI<<std::endl;
+			std::cout<<"Telefono: "<<telefono<<std::endl;
+		};
+};
+
+class Cliente: public Persona{
+	public:
+		int telefono;
+		std::string rango;
+		Cliente(){
+			nombre="";
+			DNI=0;
+			telefono=0;
+			rango="";
+		}
+		Cliente(std::string _nombre, int _DNI, int _telefono, std::string _rango):Persona(_nombre, _DNI, _telefono){
+			nombre=_nombre;
+			DNI=_DNI;
+			telefono=_telefono;
+
+			rango=_rango;			
+		};
+		void info(){
+			std::cout<<"Nombre del cliente: "<<nombre<<std::endl;
+			std::cout<<"DNI: "<<DNI<<std::endl;
+			std::cout<<"Telefono: "<<telefono<<std::endl;
+			std::cout<<"Nivel de usuario: "<<rango<<std::endl;
+		};
+};
+
+class Empleado: public Persona{
+	public:
+		double sueldo;
+		std::string area_de_trabajo;
+		int hora_entrada;
+		int hora_salida;
+		Empleado(std::string _nombre, int _DNI, int _telefono, double _sueldo, std::string _area, int _hora_e, int _hora_s):Persona(_nombre, _DNI, _telefono){
+			nombre=_nombre;
+			DNI=_DNI;
+			telefono=_telefono;
+			sueldo=_sueldo;
+			area_de_trabajo=_area;
+			hora_entrada=_hora_e;
+			hora_salida=_hora_s;
+		}
+		void info(){
+			std::cout<<"Nombre del empleado: "<<nombre<<std::endl;
+			std::cout<<"DNI: "<<DNI<<std::endl;
+			std::cout<<"Telefono: "<<telefono<<std::endl;
+			std::cout<<"Sueldo"<<sueldo<<std::endl;
+			std::cout<<"Trabaja en el sector: "<<area_de_trabajo<<std::endl;
+			std::cout<<"Horario: Desde "<<hora_entrada<<" a "<<hora_salida<<std::endl;
+		}
+};
+
+class Cliente Clientes[10];
+
+class Cuarto{
+	public:
+		int numero;
+		int precio;
+		int estado;
+		int camas;
+		std::string tipo;
+		class Cliente cliente;
+		
+		Cuarto(){
+			numero=0;
+			precio=0;
+			estado=0;
+			camas=0;
+			tipo="";
+			cliente=Cliente();
+		}
+		
+};
+
+void CrearCliente(){
+	std::string a, b;
+	int x, y;
+	std::cout<<"Nombre del cliente: "; std::cin>>a;
+	std::cout<<"DNI: "; std::cin>>x;
+	std::cout<<"Telefono: "; std::cin>>y;
+	std::cout<<"Nivel: "; std::cin>>b;
+	for(int i=0;i<10;i++){
+		if (Clientes[i].nombre==""){
+			Clientes[i]=Cliente (a, x, y, b);
+		}
+	}
+}
+
+int main(){
+
+	while (true){
+		std::cout<<"BIENVENIDO A LA INTERFAZ DE USUARIO\nIntroduzca el numero de comando que desea ejecutar\n";
+		std::cout<<"1.- Crear persona\n2.- Mostrar clientes\n";
+		int operacion; std::cin>>operacion;
+		switch(operacion){
+			case 1:
+				CrearCliente();
+				break;
+			default:
+				break;
+		}
+	}
+	return 0;
+}
