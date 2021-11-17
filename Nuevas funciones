@@ -122,7 +122,6 @@ public:
 		estado = 0;
 		camas = 0;
 		tipo = "";
-		cliente = Cliente();
 	}
 	//Constructor
 	Cuarto(int _numero, int _precio, int _estado, int _camas, std::string _tipo) {
@@ -131,6 +130,14 @@ public:
 		estado = _estado;
 		camas = _camas;
 		tipo = _tipo;
+	}
+	//Métodos
+	void info() {
+		std::cout << "Numero de habitacion: " << numero << std::endl;
+		std::cout << "Precio: " << precio << std::endl;
+		std::cout << "Numero de camas: " << camas << std::endl;
+		std::cout << "Estado: " << estado << std::endl;
+		std::cout << "Tipo de habitacion: " << tipo << std::endl;
 	}
 
 };
@@ -143,8 +150,6 @@ void CrearCliente() {
 	escribir.open("clientes.txt", ios::app);
 	if (escribir.is_open() && verificar.is_open())
 	{
-
-
 		std::string a, b;
 		int x, y, z, w, o;
 		float p;
@@ -189,22 +194,35 @@ void Clientesinfo() {
 class Cuarto Cuartos[10];
 
 void CrearCuarto() {
-	int a, b, c, d;
-	std::string e;
-	std::cout << "Numero de habitacion: "; std::cin >> a; std::cout << std::endl;
-	std::cout << "Precio: "; std::cin >> b; std::cout << std::endl;
-	std::cout << "Numero de camas: "; std::cin >> c; std::cout << std::endl;
-	d = 1;
-	std::cout << "Tipo de habitacion: "; std::cin >> e; std::cout << std::endl;
+	std::string tipo;
+	int numero;
+	int precio;
+	int estado;
+	int camas;
+	std::cout << "Numero de habitacion: "; std::cin >> numero; std::cout << std::endl;
+	std::cout << "Precio: "; std::cin >> precio; std::cout << std::endl;
+	std::cout << "Numero de camas: "; std::cin >> camas; std::cout << std::endl;
+	std::cout << "Estado de habitacion: "; std::cin >> estado; std::cout << std::endl;
+	//d = 1;
+	std::cout << "Tipo de habitacion: "; std::cin >> tipo; std::cout << std::endl;
+
 	for (int i = 0; i < 10; i++) {
 		if (Cuartos[i].estado == 0) {
-			Cuartos[i] = Cuarto(a, b, c, d, e);
+			Cuartos[i] = Cuarto(numero, precio, estado, camas, tipo);
 			break;
 		}
 	}
 }
 
-void BuscarCuarto() {
+void MostrarCuarto() {
+	for (int i = 0; i < 10; i++) {
+		if (Cuartos[i].tipo != "") {
+			std::cout << "Cuartos" << i << std::endl;
+			Cuartos[i].info();
+		}
+		std::cout << std::endl;
+	}
+
 
 }
  class Empleado Empleados[10];
@@ -247,7 +265,7 @@ int main() {
 	while (true) {
 		//Opciones
 		std::cout << "BIENVENIDO A LA INTERFAZ DE USUARIO\nIntroduzca el numero de comando que desea ejecutar\n";
-		std::cout << "1.- Crear persona\n2.- Mostrar clientes\n3.- Crear cuarto\n4.- Buscar Cuarto\n5.- Crear empleado\n6.-Mostrar Empleados\n";
+		std::cout << "1.- Crear persona\n2.- Mostrar clientes\n3.- Crear cuarto\n4.- Mostrar Cuarto\n5.- Crear empleado\n6.-Mostrar Empleados\n";
 		int operacion; std::cin >> operacion;
 		switch (operacion) {
 		case 1:
@@ -260,7 +278,7 @@ int main() {
 			CrearCuarto();
 			break;
 		case 4:
-			BuscarCuarto();
+			MostrarCuarto();
 			break;
 		case 5:
 			CrearEmpleado();
