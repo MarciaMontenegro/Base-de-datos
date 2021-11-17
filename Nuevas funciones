@@ -1,6 +1,7 @@
 //Proyecto - Base de datos Hotel
 #include <iostream>
 #include<string>
+
 #include <fstream>
 using namespace std;
 
@@ -143,13 +144,14 @@ public:
 };
 class Cliente Clientes[10];
 void CrearCliente() {
+	/*
 	ofstream escribir;
 	ifstream verificar;
 	bool coincidencia = false;
 	verificar.open("clientes.txt", ios::app);
 	escribir.open("clientes.txt", ios::app);
 	if (escribir.is_open() && verificar.is_open())
-	{
+	{*/
 		std::string a, b;
 		int x, y, z, w, o;
 		float p;
@@ -170,7 +172,7 @@ void CrearCliente() {
 				break;
 			}
 		}
-
+/*
 	}
 	else
 	{
@@ -178,6 +180,7 @@ void CrearCliente() {
 	}
 	escribir.close();
 	verificar.close();
+	*/
 
 }
 
